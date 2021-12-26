@@ -1,0 +1,29 @@
+table:
+  name: cases
+  schema: public
+array_relationships:
+- name: events
+  using:
+    foreign_key_constraint_on:
+      column: case_id
+      table:
+        name: events
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - case_id
+    - case_number
+    - created_at
+    - filed_date
+    - party_one
+    - party_three
+    - party_two
+    - precinct
+    - status
+    - style
+    - type
+    - updated_at
+    filter: {}
+    limit: 100
+  role: anon

@@ -1,0 +1,7 @@
+table:
+  name: events
+  schema: public
+object_relationships:
+- name: case
+  using:
+    foreign_key_constraint_on: case_id

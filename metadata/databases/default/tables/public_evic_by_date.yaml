@@ -1,0 +1,11 @@
+table:
+  name: evic_by_date
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - count
+    - filed_date
+    - precinct
+    filter: {}
+  role: anon
