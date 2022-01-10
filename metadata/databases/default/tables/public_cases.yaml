@@ -26,6 +26,8 @@ select_permissions:
     - style
     - type
     - updated_at
-    filter: {}
-    limit: 100
+    filter:
+      type:
+        _ilike: Eviction
+    limit: 500
   role: anon
