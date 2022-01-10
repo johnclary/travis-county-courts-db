@@ -1,3 +1,4 @@
+from datetime import timedelta
 import json
 import os
 import time
@@ -71,18 +72,17 @@ def make_obj(obj):
     return f"{{ {','.join(entries)} }}"
 
 
-def get_max_case_date():
+def get_max_case_date(minus_days=14):
     query = MAX_FILED_DATE_QUERY
     res = requests.post(
         HASURA_GRAPHQL_ENDPOINT, headers=HASURA_HEADERS, json={"query": query}
     )
     res.raise_for_status()
     data = res.json()
-
     validate_response(res)
-
-    max_case_date = data["data"]["cases"][0]["filed_date"]
-    return dateutil.parser.isoparse(max_case_date)
+    max_case_date_str = data["data"]["cases"][0]["filed_date"]
+    max_case_date = dateutil.parser.isoparse(max_case_date_str)
+    return max_case_date - timedelta(days=minus_days)
 
 
 def get_records_missing_def(start_date_str):

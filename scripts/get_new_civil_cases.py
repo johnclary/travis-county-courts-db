@@ -169,9 +169,12 @@ def get_logger():
     """Return a module logger that streams to stdout and to rotating file"""
     logger = logging.getLogger(__name__)
     formatter = logging.Formatter(fmt="%(asctime)s %(levelname)s: %(message)s")
-    handler = logging.StreamHandler(stream=sys.stdout)
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    stream_handler = logging.StreamHandler(stream=sys.stdout)
+    stream_handler.setFormatter(formatter)
+    file_handler = logging.handlers.RotatingFileHandler('log.log', maxBytes=20000, backupCount=5)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    logger.addHandler(file_handler)
     logger.setLevel(logging.DEBUG)
     return logger
 
@@ -309,7 +312,7 @@ if __name__ == "__main__":
         "--start",
         type=str,
         required=False,
-        help=f"The start date in format yyyy-mm-dd. Defaults to max case date in DB minus one day",
+        help=f"The start date in format yyyy-mm-dd. Defaults to max case date in DB minus seven days",
     )
     parser.add_argument(
         "-e",
