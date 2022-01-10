@@ -238,6 +238,7 @@ def main(start_date_str):
     search_html = init_search(session, search_id)
     session_data = parse_session_data(search_html)
     db_records = get_records_missing_def(start_date_str)
+    logger.info(f"{len(db_records)} records to fetch")
     for db_record in db_records:
         payload = format_search_payload(db_record["case_number"], session_data)
         logger.info(db_record["case_number"])
@@ -264,7 +265,7 @@ if __name__ == "__main__":
         "-s",
         "--start",
         type=str,
-        required=False,
+        required=True,
         help=f"The start date in format yyyy-mm-dd. Defaults to max case date in DB minus one day",
     )
     args = parser.parse_args()

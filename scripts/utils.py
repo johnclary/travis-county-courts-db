@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 import dateutil.parser
 import requests
@@ -99,28 +100,45 @@ def validate_response(res):
     res.raise_for_status()
     try:
         assert res.json()["data"]
-    except (AssertionError, json.decoder.JSONDecodeError, KeyError):
-        breakpoint()
+    except KeyError:
+        msg = res.json()["errors"][0]["message"]
+        if "limit" in msg:
+            return False
+        else:
+            raise ValueError(f"Upsert failed: {res.text}")    
+    except (AssertionError, json.decoder.JSONDecodeError):
         raise ValueError(f"Upsert failed: {res.text}")
+    return True
 
 
 def upsert_record(record, events):
     query = UPSERT_CASE_MUTATION
-    res = requests.post(
-        HASURA_GRAPHQL_ENDPOINT,
-        headers=HASURA_HEADERS,
-        json={"query": query, "variables": record},
-    )
-    validate_response(res)
-
-    for event in events:
-        print(event)
-        query = UPSERT_EVENT_MUTATION
+    
+    success = False
+    while not success:
         res = requests.post(
             HASURA_GRAPHQL_ENDPOINT,
             headers=HASURA_HEADERS,
-            json={"query": query, "variables": event},
+            json={"query": query, "variables": record},
         )
-        validate_response(res)
+        success = validate_response(res)
+        if not success:
+            print("sleeping for rate limit...")
+            time.sleep(1)
+
+    for event in events:
+        success = False
+        while not success:
+            print(event)
+            query = UPSERT_EVENT_MUTATION
+            res = requests.post(
+                HASURA_GRAPHQL_ENDPOINT,
+                headers=HASURA_HEADERS,
+                json={"query": query, "variables": event},
+            )
+            success = validate_response(res)
+            if not success:
+                print("sleeping for rate limit...")
+                time.sleep(1)
 
     return res.json()["data"]

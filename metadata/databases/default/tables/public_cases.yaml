@@ -11,14 +11,19 @@ array_relationships:
         schema: public
 select_permissions:
 - permission:
+    allow_aggregations: true
     columns:
     - case_id
     - case_number
     - created_at
+    - defendant_zip
     - filed_date
     - party_one
     - party_three
     - party_two
+    - plaintiff_city
+    - plaintiff_state
+    - plaintiff_zip
     - precinct
     - status
     - style

@@ -1,0 +1,11 @@
+table:
+  name: evict_by_plaintiff
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - count
+    - filed_date
+    - party_one
+    filter: {}
+  role: anon

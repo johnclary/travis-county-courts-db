@@ -250,7 +250,6 @@ def main(start_date_str, end_date_str):
     res.raise_for_status()
     search_html = init_search(session, search_id)
     session_data = parse_session_data(search_html)
-    breakpoint()
     for d in dates_todo:
         prefix = ""
         payload = format_search_payload(d, prefix, session_data)

@@ -1,0 +1,11 @@
+table:
+  name: evic_by_zip_day
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - count
+    - defendant_zip
+    - filed_date
+    filter: {}
+  role: anon

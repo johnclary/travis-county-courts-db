@@ -1,0 +1,1 @@
+create view evic_by_zip_day as (select filed_date, defendant_zip, count(defendant_zip) from cases where defendant_zip is not null and type = 'Eviction' group by defendant_zip, filed_date order by filed_date desc);

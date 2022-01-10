@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 PARTY_IDS = {"defendant": "PIr11", "plaintiff": "PIr12"}
 
+
 def decruft(text):
     # see: https://stackoverflow.com/questions/10993612/how-to-remove-xa0-from-string-in-python
     nocruft = normalize("NFKD", text)
@@ -18,12 +19,26 @@ def format_party_info(city, state, zip, kind):
 
 def parse_city_zip(text):
     print(f"PARSING: {text}")
-    city, state, zip = ["", "", ""]
+    city, state, zip = [None, None, None]
     if text:
         # i've seen dupe commas in here...hmm
         text = text.replace(",,", ",")
-        city, rest = text.split(",")
-        state, zip = rest.strip().split(" ")
+        stuff = text.split(",")
+        # handle city
+        city = stuff[0]
+        if len(stuff) == 1:
+            # hmmmm...? leave state and zip blank
+            return city, state, zip
+        if len(stuff) > 2:
+            # merge whatever gunk is here into city
+            city = ",".join(stuff[0:-1])
+        # handle state/zip
+        try:
+            state, zip = stuff[-1].strip().split(" ")
+        except ValueError:
+            # rarely but sometimes zipcode is missing
+            # so cram this into state i guess :/ 
+            state = stuff[-1]
     return city, state, zip
 
 
