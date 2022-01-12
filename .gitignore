@@ -152,3 +152,4 @@ db_data
 commands.sh
 notes.md
 scripts/load.py
+/csv
