@@ -1,0 +1,3 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- create or replace view evic_by_status_by_day as (select filed_date, status, count(status) as count from cases where type = 'Eviction' group by filed_date, status order by filed_date desc);

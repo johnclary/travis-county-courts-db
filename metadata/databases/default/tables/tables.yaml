@@ -1,5 +1,6 @@
 - "!include public_cases.yaml"
 - "!include public_events.yaml"
 - "!include public_evic_by_date.yaml"
+- "!include public_evic_by_status_by_day.yaml"
 - "!include public_evic_by_zip_day.yaml"
 - "!include public_evict_by_plaintiff.yaml"

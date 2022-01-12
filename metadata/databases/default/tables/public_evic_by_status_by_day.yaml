@@ -1,10 +1,11 @@
 table:
-  name: evic_by_date
+  name: evic_by_status_by_day
   schema: public
 select_permissions:
 - permission:
     columns:
     - count
     - filed_date
+    - status
     filter: {}
   role: anon
