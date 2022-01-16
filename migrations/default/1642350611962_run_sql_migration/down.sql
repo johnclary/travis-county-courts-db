@@ -1,0 +1,5 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table cases add column jurisdiction_county text;
+-- alter table cases add column jurisdiction_state text;
+-- alter table cases add column case_category text;

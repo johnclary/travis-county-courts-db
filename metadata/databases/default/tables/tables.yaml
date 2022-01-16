@@ -1,3 +1,4 @@
+- "!include public__log_scraper_search.yaml"
 - "!include public_cases.yaml"
 - "!include public_events.yaml"
 - "!include public_evic_by_date.yaml"
