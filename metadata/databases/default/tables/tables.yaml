@@ -1,5 +1,5 @@
 - "!include public__log_scraper_search.yaml"
-- "!include public_cases.yaml"
+- "!include public_cases_civil.yaml"
 - "!include public_cases_criminal.yaml"
 - "!include public_events.yaml"
 - "!include public_evic_by_date.yaml"

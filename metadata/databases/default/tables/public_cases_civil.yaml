@@ -1,0 +1,33 @@
+table:
+  name: cases_civil
+  schema: public
+array_relationships:
+- name: events
+  using:
+    foreign_key_constraint_on:
+      column: case_id
+      table:
+        name: events
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - _id
+    - created_at
+    - defendant_zip
+    - filed_date
+    - party_one
+    - plaintiff_city
+    - plaintiff_state
+    - plaintiff_zip
+    - precinct
+    - status
+    - style
+    - type
+    - updated_at
+    filter:
+      type:
+        _ilike: Eviction
+    limit: 500
+  role: anon
