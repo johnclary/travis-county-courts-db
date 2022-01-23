@@ -80,7 +80,7 @@ def get_max_case_date(minus_days=14):
     res.raise_for_status()
     data = res.json()
     validate_response(res)
-    max_case_date_str = data["data"]["cases"][0]["filed_date"]
+    max_case_date_str = data["data"]["cases_civil"][0]["filed_date"]
     max_case_date = dateutil.parser.isoparse(max_case_date_str)
     return max_case_date - timedelta(days=minus_days)
 

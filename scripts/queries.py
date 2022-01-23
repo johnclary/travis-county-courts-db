@@ -25,7 +25,7 @@ mutation UpsertCase(
     $defendant_state: String = ""
     $defendant_zip: String = ""
   ) {
-    insert_cases(
+    insert_cases_civil(
       objects: {
         case_id: $case_id
         case_number: $case_number
